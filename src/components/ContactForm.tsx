@@ -36,7 +36,7 @@ export default function ContactForm() {
             type="text"
             id="name"
             name="name"
-            placeholder="Enter your name"
+            placeholder="Dein Name"
             required
           />
           <input
@@ -44,7 +44,7 @@ export default function ContactForm() {
             type="email"
             id="email"
             name="email"
-            placeholder="Enter your email"
+            placeholder="Deine E-Mail-Adresse"
             required
           />
 
@@ -52,14 +52,14 @@ export default function ContactForm() {
             class="input"
             id="message"
             name="message"
-            placeholder="Write a message"
+            placeholder="Deine Nachricht"
             required
           />
 
-          <div class="my-6 flex w-full justify-end">
+          <div class="my-6 flex w-full">
             <button class="btn w-full justify-center lg:w-auto">
               <span class="rounded-full px-12 py-3 text-center text-sm text-light-text-heading dark:text-white">
-                Submit
+                Absenden
               </span>
             </button>
           </div>
