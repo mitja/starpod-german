@@ -75,7 +75,7 @@ export default function EpisodeList({ episodes, url }: Props) {
                       class="font-bold text-light-text-heading dark:text-white"
                       href={`/${episode.episodeSlug}`}
                     >
-                      Show notes
+                      Show Notes
                     </a>
                   </div>
                 </div>
@@ -88,7 +88,7 @@ export default function EpisodeList({ episodes, url }: Props) {
         <div class="mt-8 flex justify-center pb-16">
           <button class="btn" onClick={fetchMoreEpisodes}>
             <span class="rounded-full px-8 py-4 text-center text-sm text-light-text-heading dark:text-white">
-              More episodes
+              Mehr Episoden
             </span>
           </button>
         </div>

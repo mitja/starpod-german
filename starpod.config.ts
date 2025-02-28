@@ -1,24 +1,17 @@
 import { defineStarpodConfig } from 'src/utils/config';
 
 export default defineStarpodConfig({
-  blurb: 'A whiskey fueled fireside chat with your favorite web developers.',
+  blurb: 'KI einfach machen.',
   description:
-    'Veteran web developers RobbieTheWagner and Charles William Carpenter III host this informal, whiskey-fueled fireside chat with your favorite web devs. They discuss all things web development including JavaScript, TypeScript, EmberJS, React, Astro, SolidJS, CSS, HTML, Web3, and more. They take a unique approach and focus on getting to know the human side of developers and their hobbies outside of work, all while sampling a new whiskey that they rate on their unique tentacle scale.',
+    'Seit ChatGPT bricht eine schier endlose Welle von KI News über uns herein. Mitja fischt sich jede Woche nützliche und spannende Themen heraus und stellt sie vor. Mit praktischen Tipps, einfachen Erklärungen und einem Augenzwinkern zeigt er: KI funktioniert bisweilen und macht oft auch richtig Spaß. Frei nach dem Motto: KI einfach machen.',
   hosts: [
     {
-      name: 'RobbieTheWagner',
-      bio: 'Huge Ember and Tailwind fanboy. I work at Amazon btw.',
-      img: 'robbiethewagner.jpg',
-      github: 'https://github.com/RobbieTheWagner',
-      twitter: 'https://twitter.com/RobbieTheWagner',
-      website: 'https://robbiethewagner.dev'
-    },
-    {
-      name: 'Charles William Carpenter III',
-      bio: 'Third of his name, user of gifs, hater of ESM.',
-      img: 'chuckcarpenter.jpg',
-      github: 'https://github.com/chuckcarpenter',
-      twitter: 'https://twitter.com/CharlesWthe3rd'
+      name: 'Mitja Martini',
+      bio: 'KI Enthusiast, Cloud Solution Designer und Podcaster.',
+      img: 'mitjamartini.jpg',
+      github: 'https://github.com/mitja',
+      twitter: 'https://twitter.com/MitjaMartini',
+      website: 'https://mitja.dev'
     }
   ],
   platforms: {
@@ -30,5 +23,6 @@ export default defineStarpodConfig({
     spotify: 'https://open.spotify.com/show/19jiuHAqzeKnkleQUpZxDf',
     youtube: 'https://www.youtube.com/@WhiskeyWebAndWhatnot/'
   },
-  rssFeed: 'https://feel-the-news.podigee.io/feed/mp3'
+  rssFeed: 'https://feeds.megaphone.fm/PDS3666998460'
+  //rssFeed: 'https://feel-the-news.podigee.io/feed/mp3' // 'https://ki-surfcast.podigee.io/feed/mp3' //
 });
