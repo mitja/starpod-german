@@ -1,10 +1,21 @@
 export default [
+  { id: 'adamstac', name: 'Adam Stacoviak', img: 'adamstac.jpg' },
   { id: 'amerawhite2', name: 'Amera White', img: 'amerawhite2.jpg' },
   { id: 'argyleink', name: 'Adam Argyle', img: 'argyleink.jpg' },
   {
     id: 'burgessdryan',
     name: 'Ryan Burgess',
     img: 'burgessdryan.jpg'
+  },
+  {
+    id: 'carlopiana',
+    name: 'Carlo Piana',
+    img: 'carlopiana.jpg'
+  },
+  {
+    id: 'chriscoyier',
+    name: 'Chris Coyier',
+    img: 'chriscoyier.jpg'
   },
   {
     id: 'chuckcarpenter',
@@ -27,9 +38,19 @@ export default [
     img: 'dantelex.jpg'
   },
   {
+    id: 'davideast',
+    name: 'David East',
+    img: 'davideast.jpg'
+  },
+  {
     id: 'davidfowl',
     name: 'David Fowler',
     img: 'davidfowl.jpg'
+  },
+  {
+    id: 'dblums',
+    name: 'Dan Blumberg',
+    img: 'dblums.jpg'
   },
   {
     id: 'diegogonzalez',
@@ -47,14 +68,39 @@ export default [
     img: 'htmx_org.jpg'
   },
   {
+    id: 'jamesqquick',
+    name: 'James Q Quick',
+    img: 'jamesqquick.jpg'
+  },
+  {
+    id: 'jeffpcma',
+    name: 'Jeff Cronstrom',
+    img: 'jeffpcma.jpg'
+  },
+  {
     id: 'jemyoung',
     name: 'Jem Young',
     img: 'jemyoung.png'
   },
   {
+    id: 'jerodsanto',
+    name: 'Jerod Santo',
+    img: 'jerodsanto.jpg'
+  },
+  {
+    id: 'jlengstorf',
+    name: 'Jason Lengstorf',
+    img: 'jlengstorf.jpg'
+  },
+  {
     id: 'joelgriffith',
     name: 'Joel Griffith',
     img: 'joelgriffith.jpg'
+  },
+  {
+    id: 'joshcirre',
+    name: 'Josh Cirre',
+    img: 'joshcirre.jpg'
   },
   {
     id: 'ken_wheeler',
@@ -72,6 +118,11 @@ export default [
     img: 'kvlly.jpg'
   },
   {
+    id: 'madisonkanna',
+    name: 'Madison Kanna',
+    img: 'madisonkanna.jpg'
+  },
+  {
     id: 'malware_yml',
     name: 'Mal',
     img: 'malware_yml.jpg'
@@ -80,6 +131,11 @@ export default [
     id: 'mansona',
     name: 'Chris Manson',
     img: 'mansona.jpg'
+  },
+  {
+    id: 'michellebakels',
+    name: 'Michelle Bakels',
+    img: 'michellebakels.jpg'
   },
   {
     id: 'mnagdi',
@@ -120,6 +176,16 @@ export default [
     img: 'shaundai.jpg'
   },
   {
+    id: 'tasonjorres',
+    name: 'Jason Torres',
+    img: 'tasonjorres.jpg'
+  },
+  {
+    id: 'techgirl1908',
+    name: 'Angie Jones',
+    img: 'techgirl1908.jpg'
+  },
+  {
     id: 'tdesseyn',
     name: 'Taylor Desseyn',
     img: 'tdesseyn.jpg'
@@ -128,6 +194,11 @@ export default [
     id: 'theaprilyoho',
     name: 'April Yoho',
     img: 'theaprilyoho.jpg'
+  },  
+  {
+    id: 'theclarksell',
+    name: 'Clark Sell',
+    img: 'theclarksell.jpg'
   },
   {
     id: 'theprimeagen',
@@ -139,5 +210,6 @@ export default [
     name: 'Typecraft',
     img: 'typecraft_dev.jpg'
   },
+  { id: 'wagslane', name: 'Lane Wagner', img: 'wagslane.jpg' },
   { id: 'wesbos', name: 'Wes Bos', img: 'wesbos.jpg' }
 ];

@@ -3,16 +3,13 @@ import db from '@astrojs/db';
 import preact from '@astrojs/preact';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'hybrid',
+  output: 'static',
   adapter: vercel({
     imageService: true,
-    speedInsights: {
-      enabled: true
-    },
     webAnalytics: {
       enabled: true
     }
