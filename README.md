@@ -1,7 +1,8 @@
-# Starpod
+# Starpod German
 
 Starpod is the easiest way to create a podcast website in 5 minutes or less and
-it is 100% free and open source.
+it is 100% free and open source. This is a fork of the original Starpod project
+by [Robbie Wagner]() for the German podcast [KI Bauer]().
 
 ### Configuration
 

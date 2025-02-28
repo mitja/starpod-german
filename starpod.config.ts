@@ -3,15 +3,15 @@ import { defineStarpodConfig } from 'src/utils/config';
 export default defineStarpodConfig({
   blurb: 'KI einfach machen.',
   description:
-    'Seit ChatGPT bricht eine schier endlose Welle von KI News über uns herein. Mitja fischt sich jede Woche nützliche und spannende Themen heraus und stellt sie vor. Mit praktischen Tipps, einfachen Erklärungen und einem Augenzwinkern zeigt er: KI funktioniert bisweilen und macht oft auch richtig Spaß. Frei nach dem Motto: KI einfach machen.',
+    'KI Bauer ist der wöchentliche Podcast mit dem Motto: "KI einfach machen." Es geht "AI Engineering", also das Bauen von KI Lösungen für den praktischen Einsatz, möglichst einfach erklärt und mit oft erstaunlichen Ergebnissen.',
   hosts: [
     {
       name: 'Mitja Martini',
-      bio: 'KI Enthusiast, Cloud Solution Designer und Podcaster.',
+      bio: 'KI Enthusiast und Podcaster.',
       img: 'mitjamartini.jpg',
       github: 'https://github.com/mitja',
       twitter: 'https://twitter.com/MitjaMartini',
-      website: 'https://mitja.dev'
+      website: 'https://mitjamartini.com'
     }
   ],
   platforms: {
@@ -23,6 +23,6 @@ export default defineStarpodConfig({
     spotify: 'https://open.spotify.com/show/19jiuHAqzeKnkleQUpZxDf',
     youtube: 'https://www.youtube.com/@WhiskeyWebAndWhatnot/'
   },
-  rssFeed: 'https://feeds.megaphone.fm/PDS3666998460'
-  //rssFeed: 'https://feel-the-news.podigee.io/feed/mp3' // 'https://ki-surfcast.podigee.io/feed/mp3' //
+  // rssFeed: 'https://kibauer.podigee.io/feed/mp3'
+  rssFeed: 'https://feel-the-news.podigee.io/feed/mp3' // 'https://ki-surfcast.podigee.io/feed/mp3' //
 });
