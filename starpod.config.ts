@@ -3,7 +3,7 @@ import { defineStarpodConfig } from 'src/utils/config';
 export default defineStarpodConfig({
   blurb: 'KI einfach machen.',
   description:
-    'KI Bauer ist der wöchentliche Podcast mit dem Motto: "KI einfach machen." Es geht "AI Engineering", also das Bauen von KI Lösungen für den praktischen Einsatz, möglichst einfach erklärt und mit oft erstaunlichen Ergebnissen.',
+    'KI Bauer ist ein wöchentlicher Podcast mit dem Motto: "KI einfach machen." Es geht um "AI Engineering", also das Bauen von KI Lösungen für den praktischen Einsatz.',
   hosts: [
     {
       name: 'Mitja Martini',
