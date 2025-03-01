@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { Schema } from 'astro-seo-schema';
 import { marked } from 'marked';
 
@@ -10,8 +11,16 @@ import FullPlayButton from '../components/FullPlayButton';
 import UFOIllustration from '../components/illustrations/UFOIllustration.astro';
 import Layout from '../layouts/Layout.astro';
 import { getAllEpisodes, getShowInfo } from '../lib/rss';
-// Import enhanced mock data
-import { mockHostsAndGuests, getHostsAndGuestsForEpisode } from '../lib/mockData';
+// Import mockData as fallback
+import { mockHostsAndGuests } from '../lib/mockData';
+
+// Define types for hosts and guests
+interface PersonDisplay {
+  id: string;
+  name: string;
+  img: string | null;
+  isHost: boolean;
+}
 
 const show = await getShowInfo();
 
@@ -37,9 +46,18 @@ const { episode } = Astro.props;
 // Get all transcripts
 const allTranscripts = await getCollection('transcripts');
 
+// Try to get people collection, but handle the case where it might not exist yet
+let allPeople: CollectionEntry<'people'>[] = [];
+try {
+  allPeople = await getCollection('people');
+} catch (error) {
+  console.log('People collection not found, using fallback data');
+}
+
 // Try to find a transcript by episode number
-let transcriptEntry;
-let transcriptHtml = null;
+let transcriptEntry: CollectionEntry<'transcripts'> | undefined;
+let transcriptHtml: string | null = null;
+let hostsAndGuests: PersonDisplay[] = [];
 
 if (episode.episodeNumber && episode.episodeNumber !== 'Bonus') {
   try {
@@ -56,30 +74,66 @@ if (episode.episodeNumber && episode.episodeNumber !== 'Bonus') {
       );
     }
     
-    // If found, parse the markdown content directly to HTML
+    // If found, parse the markdown content directly to HTML and get hosts/guests
     if (transcriptEntry) {
       // Get the raw markdown content and convert it to HTML
-      transcriptHtml = marked.parse(transcriptEntry.body);
+      transcriptHtml = await marked.parse(transcriptEntry.body);
+      
+      // Try to get hosts and guests from the transcript frontmatter
+      if (allPeople.length > 0 && transcriptEntry.data) {
+        const { hosts = [], guests = [] } = transcriptEntry.data;
+        
+        // Map host IDs to full people objects
+        const hostObjects = hosts
+          .map(hostId => allPeople.find(p => p.id === hostId))
+          .filter(Boolean)
+          .map(host => ({
+            id: host!.id,
+            name: host!.data.name,
+            img: host!.data.img || null,
+            isHost: true
+          }));
+        
+        // Map guest IDs to full people objects
+        const guestObjects = guests
+          .map(guestId => allPeople.find(p => p.id === guestId))
+          .filter(Boolean)
+          .map(guest => ({
+            id: guest!.id,
+            name: guest!.data.name,
+            img: guest!.data.img || null,
+            isHost: false
+          }));
+        
+        // Combine hosts and guests
+        hostsAndGuests = [...hostObjects, ...guestObjects];
+      }
     }
   } catch (error) {
     console.error(`Error loading transcript for episode ${episode.episodeNumber}:`, error);
   }
 }
 
-const canonicalURL = new URL(`/${episode.episodeSlug}`, Astro.url);
-
-// Try to get episode-specific hosts and guests, fall back to default mock data
-let hostsAndGuests = [];
-try {
-  hostsAndGuests = getHostsAndGuestsForEpisode(episode.episodeSlug);
-  // If no specific hosts/guests found, use default
-  if (!hostsAndGuests || hostsAndGuests.length === 0) {
+// If no hosts/guests found in transcript, look for any hosts in the people collection
+if (hostsAndGuests.length === 0) {
+  if (allPeople.length > 0) {
+    const defaultHosts = allPeople
+      .filter(person => person.data.isHost)
+      .map(host => ({
+        id: host.id,
+        name: host.data.name,
+        img: host.data.img || null,
+        isHost: true
+      }));
+    
+    hostsAndGuests = defaultHosts;
+  } else {
+    // Fallback to mock data if people collection doesn't exist yet
     hostsAndGuests = mockHostsAndGuests;
   }
-} catch (error) {
-  console.error("Error getting hosts and guests data:", error);
-  hostsAndGuests = mockHostsAndGuests;
 }
+
+const canonicalURL = new URL(`/${episode.episodeSlug}`, Astro.url);
 
 const title = `${episode.title} - ${show.title} - Episode ${episode.episodeNumber}`;
 ---

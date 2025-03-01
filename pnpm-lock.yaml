@@ -35,6 +35,9 @@ importers:
       atropos:
         specifier: ^2.0.2
         version: 2.0.2
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.1.0
       marked:
         specifier: ^15.0.7
         version: 15.0.7
@@ -53,6 +56,9 @@ importers:
       sharp:
         specifier: ^0.33.2
         version: 0.33.5
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
       valibot:
         specifier: ^0.31.1
         version: 0.31.1
@@ -2580,6 +2586,10 @@ packages:
     resolution: {integrity: sha512-+AbdxhM9kJsHtruUF39bwS/B0Fytw6Fr1o4ZAIAEqA6cke2xcoO2GleBw9Zw7nRzILVEgz7zBM5GiTJjie1G9A==}
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     hasBin: true
+
+  slugify@1.6.6:
+    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
+    engines: {node: '>=8.0.0'}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -5802,6 +5812,8 @@ snapshots:
       '@types/sax': 1.2.7
       arg: 5.0.2
       sax: 1.4.1
+
+  slugify@1.6.6: {}
 
   source-map-js@1.2.1: {}
 

@@ -15,7 +15,9 @@
     "astro": "astro",
     "optimize-images": "node scripts/optimize-images.cjs",
     "download-fonts": "node scripts/download-fonts.cjs",
-    "prebuild": "npm run download-fonts && npm run optimize-images",
+    "setup": "node scripts/ensure-config.cjs",
+    "new-episode": "npm run setup && node scripts/create-episode.cjs",
+    "prebuild": "npm run setup && npm run optimize-images",
     "test:e2e": "pnpm exec playwright test"
   },
   "dependencies": {
@@ -28,12 +30,14 @@
     "astro": "^5.1.4",
     "astro-seo-schema": "^5.0.0",
     "atropos": "^2.0.2",
+    "js-yaml": "^4.1.0",
     "marked": "^15.0.7",
     "pnpm": "^10.5.2",
     "preact": "^10.25.1",
     "rss-to-json": "^2.1.1",
     "schema-dts": "^1.1.2",
     "sharp": "^0.33.2",
+    "slugify": "^1.6.6",
     "valibot": "^0.31.1"
   },
   "devDependencies": {

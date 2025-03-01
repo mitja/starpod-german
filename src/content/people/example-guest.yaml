@@ -1,0 +1,7 @@
+id: example-guest
+name: Example Guest
+img: example-guest.jpg
+bio: Ein Beispielgast im KI Bauer Podcast.
+links:
+  twitter: https://twitter.com/example
+  website: https://example.com
