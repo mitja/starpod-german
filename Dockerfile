@@ -16,7 +16,14 @@ COPY package.json pnpm-lock.yaml* ./
 RUN pnpm install --frozen-lockfile
 
 # Copy the rest of the application
-COPY . .
+# This COPY excludes the db directory
+COPY astro.config.mjs ./
+COPY nginx.conf ./
+COPY src ./src
+COPY public ./public
+COPY starpod.config.ts ./
+COPY tailwind.config.mjs ./
+COPY tsconfig.json ./
 
 # Build the Astro application
 RUN pnpm build

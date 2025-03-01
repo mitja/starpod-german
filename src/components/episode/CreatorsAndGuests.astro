@@ -15,10 +15,10 @@ const { hostsAndGuests } = Astro.props;
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/img/*.{jpeg,jpg,png}'
 );
-const priorityNames = ['RobbieTheWagner', 'Charles William Carpenter III'];
+const priorityNames = ['Mitja Martini'];
 ---
 
-<h3 class="section-heading pb-6">Creators and Guests</h3>
+<h3 class="section-heading pb-6">Podcaster</h3>
 
 <div class="mb-12 grid grid-cols-1 gap-4 lg:mb-20 lg:grid-cols-2">
   {
@@ -50,32 +50,62 @@ const priorityNames = ['RobbieTheWagner', 'Charles William Carpenter III'];
 
     // Sort remaining users alphabetically
     return a.name.localeCompare(b.name);
-  }).map((person) => {
+  }).map(async (person) => {
+      // Handle image with safe fallbacks
+      let personImage;
+      if (person.img && images[`/src/img/${person.img}`]) {
+        try {
+          const { default: img } = await images[`/src/img/${person.img}`]();
+          personImage = img;
+        } catch (error) {
+          console.error(`Error loading image for ${person.name}:`, error);
+        }
+      }
+
+      // Get fallback images
+      let lightFallbackImage, darkFallbackImage;
+      try {
+        const { default: lightImg } = await images['/src/img/avatar-light.png']();
+        lightFallbackImage = lightImg;
+        
+        const { default: darkImg } = await images['/src/img/avatar-dark.png']();
+        darkFallbackImage = darkImg;
+      } catch (error) {
+        console.error("Error loading fallback images:", error);
+      }
+
       return (
         <div class="flex items-center">
-          {person.img ?
+          {personImage ? (
             <Image
               class="mr-4 h-12 w-12 rounded-lg"
               height={48}
-              src={images[`/src/img/${person.img}`]()}
-              alt=""
+              src={personImage}
+              alt={`Foto von ${person.name}`}
               width={48}
             />
-            :
-            <Image
-              class="mr-4 h-12 w-12 rounded-lg dark:hidden"
-              height={48}
-              src={images['/src/img/avatar-light.png']()}
-              alt=""
-              width={48}
-            />
-            <Image
-              class="mr-4 hidden h-12 w-12 rounded-lg dark:block"
-              height={48}
-              src={images['/src/img/avatar-dark.png']()}
-              alt=""
-              width={48}
-            />}
+          ) : lightFallbackImage && darkFallbackImage ? (
+            <>
+              <Image
+                class="mr-4 h-12 w-12 rounded-lg dark:hidden"
+                height={48}
+                src={lightFallbackImage}
+                alt=""
+                width={48}
+              />
+              <Image
+                class="mr-4 hidden h-12 w-12 rounded-lg dark:block"
+                height={48}
+                src={darkFallbackImage}
+                alt=""
+                width={48}
+              />
+            </>
+          ) : (
+            <div class="mr-4 h-12 w-12 rounded-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+              <span class="text-gray-500 dark:text-gray-300 text-sm">{person.name.charAt(0)}</span>
+            </div>
+          )}
           {person.name}
         </div>
       );

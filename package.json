@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shipshapecode/starpod.git"
+    "url": "git+https://github.com/mitja/starpod-german.git"
   },
   "license": "MIT",
   "scripts": {
@@ -13,24 +13,27 @@
     "build": "astro check && astro build --remote",
     "preview": "astro preview",
     "astro": "astro",
+    "optimize-images": "node scripts/optimize-images.cjs",
+    "download-fonts": "node scripts/download-fonts.cjs",
+    "prebuild": "npm run download-fonts && npm run optimize-images",
     "test:e2e": "pnpm exec playwright test"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/db": "^0.14.5",
     "@astrojs/preact": "^4.0.1",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.4",
     "@astrojs/vercel": "^8.0.1",
     "@preact/signals": "^1.3.1",
-    "@vercel/analytics": "^1.4.1",
-    "@vercel/speed-insights": "^1.1.0",
     "astro": "^5.1.4",
     "astro-seo-schema": "^5.0.0",
     "atropos": "^2.0.2",
+    "marked": "^15.0.7",
+    "pnpm": "^10.5.2",
     "preact": "^10.25.1",
     "rss-to-json": "^2.1.1",
     "schema-dts": "^1.1.2",
+    "sharp": "^0.33.2",
     "valibot": "^0.31.1"
   },
   "devDependencies": {

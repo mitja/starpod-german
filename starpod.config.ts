@@ -3,7 +3,7 @@ import { defineStarpodConfig } from 'src/utils/config';
 export default defineStarpodConfig({
   blurb: 'KI einfach machen.',
   description:
-    'KI Bauer ist ein wöchentlicher Podcast mit dem Motto: "KI einfach machen." Es geht um "AI Engineering", also das Bauen von KI Lösungen für den praktischen Einsatz.',
+    'KI Bauer ist ein wöchentlicher Podcast mit dem Motto: "KI einfach machen." Es geht um "AI Engineering", also das Bauen von KI Lösungen für den praktischen Einsatz, möglichst einfach erklärt und mit oft erstaunlichen Ergebnissen.',
   hosts: [
     {
       name: 'Mitja Martini',
@@ -23,6 +23,6 @@ export default defineStarpodConfig({
     spotify: 'https://open.spotify.com/show/19jiuHAqzeKnkleQUpZxDf',
     youtube: 'https://www.youtube.com/@WhiskeyWebAndWhatnot/'
   },
-  // rssFeed: 'https://kibauer.podigee.io/feed/mp3'
-  rssFeed: 'https://feel-the-news.podigee.io/feed/mp3' // 'https://ki-surfcast.podigee.io/feed/mp3' //
+  rssFeed: 'https://kibauer.podigee.io/feed/mp3'
+  //rssFeed: 'https://feel-the-news.podigee.io/feed/mp3' // 'https://ki-surfcast.podigee.io/feed/mp3' //
 });

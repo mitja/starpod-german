@@ -1,8 +1,16 @@
 # Starpod German
 
-Starpod is the easiest way to create a podcast website in 5 minutes or less and
-it is 100% free and open source. This is a fork of the original Starpod project
-by [Robbie Wagner]() for the German podcast [KI Bauer]().
+Starpod is an Astro project for a podcast website. This is an adaption of the original Starpod project for German podcasts, like [KI Bauer](https://kibauer.de).
+
+Main differences to the original Starpod project:
+
+- German translations
+- Different color scheme
+- Local fonts
+- Image resizing during build (instead of via Vercel)
+- Removed Vercel analytics.
+- Local hosts-and-guests to podcast mappings instead of Turso and Astro DB.
+- Transcripts with front matter and markdown support.
 
 ### Configuration
 
@@ -47,20 +55,13 @@ A list of your show's hosts and their info.
 ```ts
 hosts: [
   {
-    name: 'RobbieTheWagner',
-    bio: 'Huge Ember and Tailwind fanboy. I work at Amazon btw.',
-    img: '/src/img/robbiethewagner.jpg',
-    github: 'https://github.com/RobbieTheWagner',
-    twitter: 'https://twitter.com/RobbieTheWagner',
-    website: 'https://robbiethewagner.dev'
+    name: 'Mitja Martini',
+    bio: 'KI Enthusiast und Podcaster',
+    img: '/src/img/mitjamartini.jpg',
+    github: 'https://github.com/mitja',
+    twitter: 'https://twitter.com/MitjaMartini',
+    website: 'https://mitjamartini.com'
   },
-  {
-    name: 'Charles William Carpenter III',
-    bio: 'Third of his name, user of gifs, hater of ESM.',
-    img: '/src/img/chuckcarpenter.jpg',
-    github: 'https://github.com/chuckcarpenter',
-    twitter: 'https://twitter.com/CharlesWthe3rd'
-  }
 ],
 ```
 
@@ -101,4 +102,33 @@ see fit.
 
 #### Configuring guests
 
-We use Turso and Astro DB to setup guests per episode. If you would also like to do this, you will need a Turso account.
+1. Add an image of the guest to `src/img/` with the filename being the guest's
+   name in lowercase with no spaces.
+
+
+2. Add the guest to the `guests` people array in `src/lib/mockData.js`:
+
+```ts
+  export const people = [
+    { 
+      id: 'mitjamartini', 
+      name: 'Mitja Martini', 
+      img: 'mitjamartini.jpg' 
+    }
+    // You can add more people from your original people.ts file if needed
+  ];
+  ```
+
+3. Add episode to hosts/guests mappings in the `peoplePerEpisode` array in `src/lib/mockData.js`:
+
+```ts
+  export const peoplePerEpisode = {
+    'introducing-ki-bauer': [
+      { id: 'mitjamartini', host: true }
+    ],
+    'ai-fundamentals-episode': [
+      { id: 'mitjamartini', host: true }
+    ]
+    // Add more episode mappings as needed
+  };
+  ```

@@ -1,8 +1,7 @@
 ---
-import { getEntry } from 'astro:content';
-import { db, eq, Episode as DbEpisode, HostOrGuest, Person } from 'astro:db';
-
+import { getCollection } from 'astro:content';
 import { Schema } from 'astro-seo-schema';
+import { marked } from 'marked';
 
 import FormattedDate from '../components/FormattedDate';
 import CreatorsAndGuests from '../components/episode/CreatorsAndGuests.astro';
@@ -11,6 +10,8 @@ import FullPlayButton from '../components/FullPlayButton';
 import UFOIllustration from '../components/illustrations/UFOIllustration.astro';
 import Layout from '../layouts/Layout.astro';
 import { getAllEpisodes, getShowInfo } from '../lib/rss';
+// Import enhanced mock data
+import { mockHostsAndGuests, getHostsAndGuestsForEpisode } from '../lib/mockData';
 
 const show = await getShowInfo();
 
@@ -33,29 +34,52 @@ export async function getStaticPaths() {
 
 const { episode } = Astro.props;
 
-let Transcript;
+// Get all transcripts
+const allTranscripts = await getCollection('transcripts');
+
+// Try to find a transcript by episode number
+let transcriptEntry;
+let transcriptHtml = null;
 
 if (episode.episodeNumber && episode.episodeNumber !== 'Bonus') {
-  Transcript = await getEntry('transcripts', episode.episodeNumber);
-  if (Transcript) {
-    const { Content } = await Transcript.render();
-    Transcript = Content;
+  try {
+    // First try exact match with episode number
+    transcriptEntry = allTranscripts.find(
+      t => t.id === episode.episodeNumber || 
+           t.data.episodeNumber === episode.episodeNumber
+    );
+    
+    // If not found, try with slug
+    if (!transcriptEntry) {
+      transcriptEntry = allTranscripts.find(
+        t => t.slug === episode.episodeSlug
+      );
+    }
+    
+    // If found, parse the markdown content directly to HTML
+    if (transcriptEntry) {
+      // Get the raw markdown content and convert it to HTML
+      transcriptHtml = marked.parse(transcriptEntry.body);
+    }
+  } catch (error) {
+    console.error(`Error loading transcript for episode ${episode.episodeNumber}:`, error);
   }
 }
 
 const canonicalURL = new URL(`/${episode.episodeSlug}`, Astro.url);
 
-const hostsAndGuests = await db
-  .select({
-    id: Person.id,
-    img: Person.img,
-    isHost: HostOrGuest.isHost,
-    name: Person.name
-  })
-  .from(HostOrGuest)
-  .innerJoin(DbEpisode, eq(HostOrGuest.episodeSlug, DbEpisode.episodeSlug))
-  .innerJoin(Person, eq(HostOrGuest.personId, Person.id))
-  .where(eq(DbEpisode.episodeSlug, episode.episodeSlug));
+// Try to get episode-specific hosts and guests, fall back to default mock data
+let hostsAndGuests = [];
+try {
+  hostsAndGuests = getHostsAndGuestsForEpisode(episode.episodeSlug);
+  // If no specific hosts/guests found, use default
+  if (!hostsAndGuests || hostsAndGuests.length === 0) {
+    hostsAndGuests = mockHostsAndGuests;
+  }
+} catch (error) {
+  console.error("Error getting hosts and guests data:", error);
+  hostsAndGuests = mockHostsAndGuests;
+}
 
 const title = `${episode.title} - ${show.title} - Episode ${episode.episodeNumber}`;
 ---
@@ -120,10 +144,11 @@ const title = `${episode.title} - ${show.title} - Episode ${episode.episodeNumbe
         </h3>
 
         {
-          Transcript ? (
+          transcriptHtml ? (
             <div class="mb-20">
               <article class="transcript prose prose-neutral line-clamp-4 dark:prose-invert">
-                <Transcript />
+                {/* Use Fragment to insert the HTML */}
+                <Fragment set:html={transcriptHtml} />
               </article>
 
               <button

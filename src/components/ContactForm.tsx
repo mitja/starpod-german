@@ -4,25 +4,24 @@ export default function ContactForm() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
 
-  async function submit(e: SubmitEvent) {
+  function submit(e: SubmitEvent) {
     e.preventDefault();
 
+    // For static builds, we'll redirect to our static API endpoint with the form data
     const formData = new FormData(e.target as HTMLFormElement);
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        body: formData
-      });
-
-      const data = await response.json();
-
-      if (data.message) {
-        setResponseMessage(data.message);
-      }
-      if (response.ok) {
-        setFormSubmitted(true);
-      }
-    } catch {}
+    
+    // Build query params
+    const params = new URLSearchParams();
+    formData.forEach((value, key) => {
+      params.append(key, value.toString());
+    });
+    
+    // Set a success message and then redirect
+    setResponseMessage("Thanks for contacting us! We'll be in touch soon.");
+    setFormSubmitted(true);
+    
+    // Redirect to our static handler with params
+    window.location.href = `/api/contact?${params.toString()}`;
   }
 
   return (

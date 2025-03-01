@@ -3,8 +3,6 @@ import { ClientRouter } from 'astro:transitions';
 
 import { Schema } from 'astro-seo-schema';
 
-import SpeedInsights from '@vercel/speed-insights/astro';
-
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Dots from '../components/Dots.astro';
 import Hosts from '../components/Hosts.astro';
@@ -16,6 +14,7 @@ import ShowArtwork from '../components/ShowArtwork.astro';
 import { getShowInfo } from '../lib/rss';
 import starpodConfig from 'starpod.config';
 
+import '../styles/fonts.css';
 import '../styles/global.css';
 
 const show = await getShowInfo();
@@ -58,13 +57,12 @@ const description = Astro.props.description ?? starpodConfig.description;
     }
 
     <!-- Favicons -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="apple-mobile-web-app-title" content="KI Bauer" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-    <meta name="msapplication-TileColor" content="#da532c" />
-    <meta name="theme-color" content="#ffffff" />
 
     <!-- Title -->
     <title>{title}</title>
@@ -83,12 +81,7 @@ const description = Astro.props.description ?? starpodConfig.description;
 
     <meta property="og:site_name" content={show.title} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
+    <script defer data-domain="kibauer.de" src="https://plausible.io/js/script.js"></script>
 
     <Schema
       slot="head"
@@ -104,7 +97,6 @@ const description = Astro.props.description ?? starpodConfig.description;
 
     <slot name="head" />
 
-    <SpeedInsights />
     <ClientRouter />
   </head>
   <body

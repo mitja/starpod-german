@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import db from '@astrojs/db';
 import preact from '@astrojs/preact';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
@@ -8,15 +7,8 @@ import vercel from '@astrojs/vercel';
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  adapter: vercel({
-    imageService: true,
-    webAnalytics: {
-      enabled: true
-    }
-  }),
   site: 'https://kibauer.de/',
   integrations: [
-    db(),
     preact(),
     sitemap(),
     tailwind({
@@ -32,5 +24,10 @@ export default defineConfig({
     //  'creating-codepen-tackling-tailwind-and-keeping-it-simple-with-chris-coyier',
     //'/coding-languages-ai-and-the-evolution-of-game-development-with-phillip-winston':
     //  '/coding-languages-ai-and-the-evolution-of-game-development-with-philip-winston'
+  },
+  image: {
+    service: { entrypoint: 'astro/assets/services/sharp' },
+    domains: [],
+    remotePatterns: []
   }
 });

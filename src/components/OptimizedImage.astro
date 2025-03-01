@@ -1,0 +1,64 @@
+---
+/**
+ * A component that provides optimized images without relying on Vercel's image service
+ * Uses pre-optimized images created by the optimize-images.js script
+ */
+
+ export interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  sizes?: string;
+}
+
+const { 
+  src, 
+  alt, 
+  width = 300, 
+  height, 
+  class: className = '', 
+  sizes = '(max-width: 640px) 100vw, 50vw' 
+} = Astro.props;
+
+// Determine appropriate image size based on requested width
+function getOptimizedSize(requestedWidth: number): number {
+  const availableSizes = [48, 96, 120, 240, 480, 800];
+  // Find the smallest size that is >= the requested width
+  const optimalSize = availableSizes.find(size => size >= requestedWidth) || availableSizes[availableSizes.length - 1];
+  return optimalSize;
+}
+
+// Extract filename without extension and path
+const filename = src.split('/').pop()?.split('.')[0];
+const optimalSize = getOptimizedSize(width);
+
+// Calculate aspect ratio for height if not provided
+const calculatedHeight = height || Math.round(width * (height ? height / width : 1));
+
+// Build path to optimized image
+const optimizedSrc = `/images/optimized/${filename}_optimized_${optimalSize}.jpg`;
+const webpSrc = `/images/optimized/${filename}.webp`;
+
+// Fallback to original source if the file naming doesn't match our convention
+const fallbackSrc = src.startsWith('/') ? src : `/src/img/${src}`;
+---
+
+<picture>
+  <source 
+    srcset={webpSrc} 
+    type="image/webp"
+    onerror="this.onerror=null; this.srcset=null;"
+  />
+  <img
+    src={optimizedSrc}
+    alt={alt}
+    width={width}
+    height={calculatedHeight}
+    class={className}
+    loading="lazy"
+    decoding="async"
+    onerror={`this.onerror=null; this.src='${fallbackSrc}';`}
+  />
+</picture>
